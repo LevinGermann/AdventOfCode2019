@@ -1,13 +1,7 @@
 package com.levingermann.aoc2019.day01;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Main {
     private final List<Integer> masses = Arrays.asList(148216,
@@ -113,14 +107,19 @@ public class Main {
 
     public Main() {
         int sum = 0;
-        for(Integer mass : masses){
+        for (Integer mass : masses) {
             sum += calculateFuel(mass);
         }
-        System.out.println(sum);
+        System.out.println("answer: " + sum);
     }
 
     private int calculateFuel(int mass) {
-        return (mass / 3) - 2;
+        if (mass < 3 || (mass / 3) - 2 < 0)
+            return 0;
+        int fuel = (mass / 3) - 2;
+        System.out.println(fuel);
+        int further = calculateFuel(fuel);
+        return fuel + further;
     }
 
     public static void main(String[] args) {
